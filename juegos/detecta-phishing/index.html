@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05090f">
+  <meta name="description" content="Detecta el phishing: juego interactivo para clases de ciberseguridad.">
+  <meta name="robots" content="noarchive">
+  <title>Detecta el Phishing | CiberAula</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="assets/style.min.css">
+  <link rel="stylesheet" href="assets/game-overrides.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="home-link" href="../../index.html" aria-label="Volver a la portada de juegos">← PORTADA</a>
+    <div class="brand">
+      <span class="tag">COLECCIÓN CIBERAULA · JUEGO 01</span>
+      <h1>DETECTA EL <em>PHISHING</em></h1>
+    </div>
+
+    <!-- LOGO DEL JUEGO: reemplaza assets/logo.png conservando ese nombre. -->
+    <img class="corner-logo" src="assets/logo.png" alt="Logo de la organización" title="Reemplaza assets/logo.png por tu propio logo">
+
+    <div class="tools">
+      <button id="soundBtn" class="icon-btn" type="button" aria-label="Activar o desactivar sonido">🔊</button>
+      <button id="fullBtn" class="icon-btn" type="button" aria-label="Pantalla completa">⛶</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="intro" class="screen active" aria-labelledby="introTitle">
+      <div class="hero-game-layout">
+        <div class="glass hero">
+          <p class="eyebrow">MISIÓN DE ENTRENAMIENTO</p>
+          <h2 id="introTitle">¿Podrás reconocer el engaño?</h2>
+          <p>Analiza mensajes simulados, inspecciona sus pistas y decide si son <strong>phishing</strong> o <strong>legítimos</strong>. No hay enlaces reales ni debes ingresar datos.</p>
+          <div class="setup">
+            <label>Preguntas por partida
+              <select id="roundSize">
+                <option value="10">10 · Rápida</option>
+                <option value="20" selected>20 · Clase</option>
+                <option value="all">Todas las disponibles</option>
+              </select>
+            </label>
+            <label class="check">
+              <input id="timerToggle" type="checkbox" checked>
+              <span>Temporizador de 45 segundos</span>
+            </label>
+          </div>
+          <button id="startBtn" class="primary" type="button">INICIAR MISIÓN <span>→</span></button>
+          <div class="how">
+            <div><b>1</b><span>Lee el mensaje</span></div>
+            <div><b>2</b><span>Inspecciona los detalles</span></div>
+            <div><b>3</b><span>Decide y aprende</span></div>
+          </div>
+          <p class="keys">Teclado: <kbd>I</kbd> inspeccionar · <kbd>P</kbd> phishing · <kbd>L</kbd> legítimo · <kbd>N</kbd> siguiente</p>
+        </div>
+
+        <figure class="anonymous-panel" aria-label="Anonymous presenta el reto Detecta el Phishing">
+          <img src="assets/anonymous-phishing.webp" alt="Personaje Anonymous con una caña de pescar y datos personales, representación del phishing">
+          <figcaption><span>OBJETIVO</span><b>No muerdas el anzuelo digital.</b></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="game" class="screen" aria-label="Juego">
+      <div class="hud glass">
+        <div><span>PRUEBA</span><strong id="progressText">1 / 20</strong></div>
+        <div><span>PUNTOS</span><strong id="scoreText">0</strong></div>
+        <div><span>RACHA</span><strong id="streakText">0 🔥</strong></div>
+        <div id="timerBox"><span>TIEMPO</span><strong id="timerText">45</strong></div>
+        <div class="progress"><i id="progressBar"></i></div>
+      </div>
+
+      <article class="message-card glass">
+        <div class="message-head"><span id="channelBadge" class="channel">CORREO</span><span id="caseId" class="case">DP-001</span></div>
+        <dl>
+          <div><dt>De</dt><dd id="sender"></dd></div>
+          <div><dt>Asunto</dt><dd id="subject"></dd></div>
+        </dl>
+        <div id="message" class="message-body"></div>
+        <button id="inspectBtn" class="inspect" type="button">⌕ INSPECCIONAR DETALLES</button>
+        <div id="details" class="details" hidden>
+          <div><span>Destino visible</span><code id="linkValue"></code></div>
+          <div><span>Archivo adjunto</span><code id="attachmentValue"></code></div>
+        </div>
+        <div id="hint" class="hint" hidden></div>
+      </article>
+
+      <div class="decision" aria-label="Elige una respuesta">
+        <button id="phishingBtn" class="answer danger" type="button"><span>⚠</span><b>ES PHISHING</b><small>Veo señales de engaño</small></button>
+        <button id="legitBtn" class="answer safe" type="button"><span>✓</span><b>ES LEGÍTIMO</b><small>Parece una comunicación segura</small></button>
+      </div>
+      <button id="hintBtn" class="hint-btn" type="button">💡 Usar pista (−20 puntos)</button>
+
+      <section id="feedback" class="feedback glass" aria-live="polite" hidden>
+        <h3 id="feedbackTitle"></h3>
+        <p id="feedbackText"></p>
+        <h4>Señales clave</h4>
+        <ul id="signals"></ul>
+        <p class="action"><b>Acción recomendada:</b> <span id="actionText"></span></p>
+        <button id="nextBtn" class="primary" type="button">SIGUIENTE PRUEBA <span>→</span></button>
+      </section>
+    </section>
+
+    <section id="results" class="screen" aria-labelledby="resultTitle">
+      <div class="glass results-card">
+        <p class="eyebrow">MISIÓN FINALIZADA</p>
+        <div id="resultRing" class="ring"><span id="percentText">0%</span></div>
+        <h2 id="resultTitle">Resultado</h2>
+        <p id="resultMessage"></p>
+        <div class="result-grid">
+          <div><strong id="correctText">0</strong><span>Correctas</span></div>
+          <div><strong id="wrongText">0</strong><span>Por reforzar</span></div>
+          <div><strong id="finalScoreText">0</strong><span>Puntos</span></div>
+        </div>
+        <div id="review" class="review"></div>
+        <div class="result-actions">
+          <button id="restartBtn" class="primary" type="button">JUGAR DE NUEVO</button>
+          <button id="printBtn" class="secondary" type="button">IMPRIMIR RESULTADO</button>
+          <a class="secondary result-home" href="../../index.html">VOLVER A LA PORTADA</a>
+        </div>
+        <p class="safety">Regla de oro: ante un mensaje inesperado, verifica por un canal conocido; no uses el enlace, teléfono o contacto incluido en el propio mensaje sospechoso.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Material educativo · Los mensajes son simulados</span>
+    <span>© 2026 Miller Rincón Tautiva · Todos los derechos reservados</span>
+  </footer>
+
+  <noscript>Este juego necesita JavaScript activado.</noscript>
+  <script src="pruebas.js"></script>
+  <script src="assets/game.min.js" defer></script>
+</body>
+</html>
