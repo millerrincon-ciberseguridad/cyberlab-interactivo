@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#03070c">
+  <meta name="description" content="Puesto Cero: una misión original de CiberAula para investigar un puesto afectado por ransomware, reunir evidencias y recuperar los archivos.">
+  <title>Puesto Cero: incidente ransomware | CiberAula</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="assets/game.css">
+</head>
+<body>
+  <div class="anonymous-bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="home-link" href="../../index.html">← PORTADA</a>
+    <div class="brand"><span>COLECCIÓN CIBERAULA · JUEGO 07</span><h1>PUESTO CERO: <em>INCIDENTE RANSOMWARE</em></h1></div>
+    <!-- LOGO CONFIGURABLE: reemplaza assets/logo.png conservando el nombre. -->
+    <img class="corner-logo" src="assets/logo.png" alt="Logo de la organización">
+    <div class="tools">
+      <button id="scoreBtn" class="tool-btn" type="button">▥ SCORE</button>
+      <button id="soundBtn" class="icon-btn" type="button" aria-label="Activar o silenciar sonidos" aria-pressed="false">♪</button>
+      <button id="fullBtn" class="icon-btn" type="button" aria-label="Pantalla completa">⛶</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="intro" class="screen active" aria-labelledby="introTitle">
+      <div class="intro-grid">
+        <article class="glass intro-copy">
+          <p class="eyebrow">SIMULACIÓN ORIGINAL · RESPUESTA A INCIDENTES</p>
+          <h2 id="introTitle">El puesto 07 acaba de quedar <em>cifrado.</em></h2>
+          <p>A las 08:17 se detuvieron varios servicios y apareció una nota de rescate. Explora el puesto sin destruir evidencia, resuelve pruebas, guarda hallazgos en el inventario y reconstruye el código del recuperador institucional.</p>
+          <div class="mission-rules">
+            <div><b>24</b><span>objetos y pruebas</span></div><div><b>4</b><span>zonas explorables</span></div><div><b>2</b><span>ayudas progresivas</span></div><div><b>30</b><span>minutos</span></div>
+          </div>
+          <label class="player-field">Nombre del jugador
+            <input id="playerName" type="text" maxlength="40" autocomplete="nickname" placeholder="Escribe tu nombre" required>
+            <small>Se guarda solo en este navegador y comparte el score con los demás juegos mediante <code>ciberaula:score:v1</code>.</small>
+          </label>
+          <p id="nameError" class="error" role="alert" hidden>Escribe el nombre del jugador para iniciar.</p>
+          <div id="playerSnapshot" class="snapshot" hidden><div><span id="snapshotName"></span><b id="snapshotWins"></b></div><i><span id="snapshotBar"></span></i><small id="snapshotMeta"></small></div>
+          <p id="resumeNotice" class="resume-note" hidden>Hay una investigación guardada para este jugador.</p>
+          <div class="intro-actions"><button id="startBtn" class="primary" type="button">ENTRAR AL PUESTO <span>→</span></button><button id="resumeBtn" class="secondary" type="button" hidden>CONTINUAR INVESTIGACIÓN</button></div>
+          <p class="victory-rule"><b>Criterio de victoria:</b> reúne los cuatro fragmentos, resuelve al menos 18 interacciones, introduce el código correcto y conserva una calificación de seguridad igual o superior al 75 %.</p>
+        </article>
+        <aside class="intro-art" aria-label="Ilustración de Anonymous ante un terminal bloqueado">
+          <img src="assets/anonymous-ransomware.webp" alt="Figura de Anonymous ante un terminal con un candado digital">
+          <div><span>ALERTA RANSOMWARE</span><strong>NO PAGUES. CONTÉN. PRESERVA. RECUPERA.</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="game" class="screen" aria-labelledby="gameTitle">
+      <div class="hud glass">
+        <div><span>JUGADOR</span><strong id="hudPlayer">—</strong></div>
+        <div><span>TIEMPO</span><strong id="timeText">30:00</strong></div>
+        <div><span>RESUELTAS</span><strong id="progressText">0 / 24</strong></div>
+        <div><span>SEGURIDAD</span><strong id="safetyText">100%</strong></div>
+        <div><span>FRAGMENTOS</span><strong id="fragmentText">0 / 4</strong></div>
+        <i id="timeBar" class="time-bar"></i>
+      </div>
+
+      <div class="mission-heading"><div><p class="eyebrow">PUESTO DE TRABAJO · 08:17</p><h2 id="gameTitle">Investiga sin propagar el incidente</h2></div><button id="saveExitBtn" class="secondary" type="button">GUARDAR Y SALIR</button></div>
+
+      <div class="game-layout">
+        <section class="scene-column">
+          <div class="zone-tabs" role="tablist" aria-label="Zonas del puesto">
+            <button type="button" role="tab" data-zone="escritorio" aria-selected="true">01 · ESCRITORIO</button>
+            <button type="button" role="tab" data-zone="pantalla" aria-selected="false">02 · PANTALLA</button>
+            <button type="button" role="tab" data-zone="cajonera" aria-selected="false">03 · CAJONERA</button>
+            <button type="button" role="tab" data-zone="pared" aria-selected="false">04 · PARED</button>
+          </div>
+          <div class="scene glass" id="scene" aria-label="Vista esquemática de la zona seleccionada">
+            <div class="scene-grid" aria-hidden="true"></div>
+            <div class="scene-title"><span id="zoneNumber">ZONA 01</span><b id="zoneTitle">ESCRITORIO COMPROMETIDO</b><small id="zoneSubtitle">Toca los indicadores o usa la lista táctil inferior.</small></div>
+            <div id="hotspots" class="hotspots"></div>
+            <div class="ransom-window" aria-hidden="true"><i></i><strong>FILES_LOCKED</strong><span>RECOVERY_REQUIRED</span></div>
+          </div>
+          <div class="touch-panel glass">
+            <div><p class="eyebrow">ALTERNATIVA TÁCTIL Y DE TECLADO</p><h3>Objetos de la zona</h3></div>
+            <div id="touchList" class="touch-list"></div>
+          </div>
+        </section>
+
+        <aside class="case-column">
+          <section id="casePanel" class="glass case-panel" aria-live="polite">
+            <div id="caseEmpty" class="case-empty"><span class="radar" aria-hidden="true"></span><p class="eyebrow">ANÁLISIS EN ESPERA</p><h3>Selecciona un objeto</h3><p>Explora las cuatro zonas. Ninguna interacción exige descargar archivos, ejecutar programas ni conectarte a servicios externos.</p></div>
+            <div id="challenge" hidden>
+              <div class="case-meta"><span id="caseId">R-01</span><b id="caseZone">ESCRITORIO</b></div>
+              <div class="case-title"><span id="caseIcon">🔌</span><div><small id="caseObject"></small><h3 id="caseTitle"></h3></div></div>
+              <p id="casePrompt" class="prompt"></p>
+              <div id="answerArea" class="answer-area"></div>
+              <div class="hint-actions"><button id="hintBtn" class="hint-btn" type="button">◎ AYUDA 1 DE 2</button><span id="hintCost">−2 puntos de seguridad</span></div>
+              <div id="hintBox" class="hint-box" hidden></div>
+              <div id="feedback" class="feedback" hidden><h4 id="feedbackTitle"></h4><p id="feedbackText"></p><p class="learning"><b>Aprendizaje:</b> <span id="learningText"></span></p><button id="closeCaseBtn" class="primary" type="button">GUARDAR HALLAZGO</button></div>
+            </div>
+          </section>
+
+          <section class="glass inventory-panel" aria-labelledby="inventoryTitle">
+            <div class="panel-heading"><div><p class="eyebrow">EVIDENCIA Y PISTAS</p><h3 id="inventoryTitle">Inventario</h3></div><b id="inventoryCount">0 elementos</b></div>
+            <p class="inventory-help">Toca un elemento para leerlo. Los fragmentos naranjas forman el código en el orden del protocolo.</p>
+            <div id="inventory" class="inventory" aria-live="polite"></div>
+            <div class="fragment-board" aria-label="Fragmentos del código final">
+              <span data-slot="1">1<small>CONTENER</small></span><span data-slot="2">2<small>ANALIZAR</small></span><span data-slot="3">3<small>VALIDAR</small></span><span data-slot="4">4<small>RECUPERAR</small></span>
+            </div>
+          </section>
+
+          <section class="glass decoder-panel" aria-labelledby="decoderTitle">
+            <div><p class="eyebrow">RECUPERADOR INSTITUCIONAL</p><h3 id="decoderTitle">Código de restauración</h3></div>
+            <p id="decoderStatus">Necesitas cuatro fragmentos y 18 interacciones resueltas.</p>
+            <label>Código de 4 dígitos<input id="finalCode" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="••••" disabled></label>
+            <button id="decodeBtn" class="danger" type="button" disabled>RECUPERAR ARCHIVOS</button>
+            <p id="decoderError" class="error" role="alert" hidden></p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section id="results" class="screen" aria-labelledby="resultTitle">
+      <article class="glass result-card">
+        <p class="eyebrow">INFORME DE MISIÓN · <span id="resultPlayer"></span></p>
+        <div id="resultRing" class="result-ring"><strong id="resultPercent">0%</strong></div>
+        <h2 id="resultTitle">Resultado</h2><p id="resultMessage"></p>
+        <div id="victoryNotice" class="victory-notice"></div>
+        <div class="result-stats"><div><b id="resultSolved">0/24</b><span>interacciones</span></div><div><b id="resultHints">0</b><span>ayudas</span></div><div><b id="resultMistakes">0</b><span>errores</span></div><div><b id="resultTime">00:00</b><span>tiempo usado</span></div></div>
+        <div class="lesson-grid"><article><b>CONTÉN</b><p>Aísla el activo de la red siguiendo el protocolo; no improvises ni pagues.</p></article><article><b>PRESERVA</b><p>Registra la nota, los eventos y los cambios sin destruir evidencia.</p></article><article><b>VALIDA</b><p>Comprueba integridad, origen y limpieza antes de restaurar.</p></article><article><b>MEJORA</b><p>Refuerza MFA, mínimo privilegio, segmentación y copias inmutables probadas.</p></article></div>
+        <div id="review" class="review"></div>
+        <div class="result-actions"><button id="restartBtn" class="primary" type="button">JUGAR DE NUEVO</button><button id="resultScoreBtn" class="secondary" type="button">CONSULTAR SCORE</button><button id="printBtn" class="secondary" type="button">IMPRIMIR INFORME</button><a class="secondary" href="../../index.html">VOLVER A LA PORTADA</a></div>
+      </article>
+    </section>
+  </main>
+
+  <section id="itemDialog" class="overlay" hidden aria-hidden="true"><div class="dialog glass" role="dialog" aria-modal="true" aria-labelledby="itemTitle"><button id="closeItemBtn" class="dialog-close" type="button" aria-label="Cerrar">×</button><span id="itemIcon" class="dialog-icon">📎</span><p class="eyebrow">ELEMENTO DEL INVENTARIO</p><h2 id="itemTitle"></h2><p id="itemDetail"></p></div></section>
+  <section id="scorePanel" class="overlay" hidden aria-hidden="true"><div class="score-dialog glass" role="dialog" aria-modal="true" aria-labelledby="scoreTitle"><div class="score-heading"><div><p class="eyebrow">REGISTRO LOCAL COMPARTIDO</p><h2 id="scoreTitle">Score de jugadores</h2></div><button id="closeScoreBtn" class="dialog-close" type="button" aria-label="Cerrar">×</button></div><p>Una victoria se registra con 75 % o más. La escala reúne todos los juegos de CiberAula en este navegador.</p><div id="scoreList" class="score-list"></div><p id="emptyScore" hidden>Aún no hay partidas registradas.</p></div></section>
+
+  <footer><span>Material educativo · Simulación sin malware real</span><span>© 2026 Miller Rincón Tautiva · CiberAula</span></footer>
+  <noscript>Este juego necesita JavaScript activado.</noscript>
+  <script src="pruebas.js"></script>
+  <script src="assets/game.js" defer></script>
+</body>
+</html>

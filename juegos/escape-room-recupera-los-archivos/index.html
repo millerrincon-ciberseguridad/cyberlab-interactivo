@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#04080d">
+  <meta name="description" content="Escape Room: recupera los archivos. Resuelve incidentes, recupera información y aprende a responder de forma segura.">
+  <meta name="robots" content="noarchive">
+  <title>Escape Room: recupera los archivos | CiberAula</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="assets/game.css">
+</head>
+<body>
+  <div class="anonymous-bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="home-link" href="../../index.html" aria-label="Volver a la portada de juegos">← PORTADA</a>
+    <div class="brand">
+      <span class="tag">COLECCIÓN CIBERAULA · JUEGO 04</span>
+      <h1>ESCAPE ROOM: <em>RECUPERA LOS ARCHIVOS</em></h1>
+    </div>
+    <!-- LOGO CONFIGURABLE: reemplaza assets/logo.png conservando ese nombre. -->
+    <img class="corner-logo" src="assets/logo.png" alt="Logo de la organización" title="Reemplaza assets/logo.png por tu propio logo">
+    <div class="tools">
+      <button id="scoreBtn" class="score-button" type="button" aria-haspopup="dialog">▥ SCORE</button>
+      <button id="fullBtn" class="icon-btn" type="button" aria-label="Pantalla completa">⛶</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="intro" class="screen active" aria-labelledby="introTitle">
+      <div class="intro-layout">
+        <div class="glass hero">
+          <p class="eyebrow">MISIÓN DE RECUPERACIÓN DIGITAL</p>
+          <h2 id="introTitle">La bóveda está bloqueada.<br>Los archivos no pueden esperar.</h2>
+          <p>Un incidente cifró y dispersó documentos críticos. Abre cada expediente, elige la respuesta segura y reconstruye la bóveda antes de que se pierda la cadena de recuperación.</p>
+          <div class="setup">
+            <label class="player-field">Nombre del jugador
+              <input id="playerName" type="text" maxlength="40" autocomplete="nickname" placeholder="Escribe tu nombre" required>
+              <small>El score se guarda solo en este navegador y se comparte con los demás juegos.</small>
+            </label>
+            <label>Expedientes por partida
+              <select id="roundSize">
+                <option value="10">10 · Incursión rápida</option>
+                <option value="20" selected>20 · Operación completa</option>
+                <option value="all">Todos los disponibles</option>
+              </select>
+            </label>
+          </div>
+          <div id="playerSnapshot" class="player-snapshot" hidden aria-live="polite">
+            <div><span>AVANCE DEL JUGADOR</span><strong id="snapshotLabel"></strong></div>
+            <div class="mini-scale"><i id="snapshotBar"></i></div>
+            <small id="snapshotMeta"></small>
+          </div>
+          <p id="resumeNotice" class="resume-notice" hidden>Hay una misión guardada en este dispositivo.</p>
+          <p id="nameError" class="name-error" role="alert" hidden>Escribe el nombre del jugador para iniciar.</p>
+          <div class="intro-actions">
+            <button id="startBtn" class="primary" type="button">ABRIR LA BÓVEDA <span>→</span></button>
+            <button id="resumeBtn" class="secondary" type="button" hidden>CONTINUAR MISIÓN</button>
+          </div>
+          <div class="how">
+            <div><b>1</b><span>Abre un expediente</span></div>
+            <div><b>2</b><span>Evalúa el incidente</span></div>
+            <div><b>3</b><span>Recupera el archivo</span></div>
+          </div>
+        </div>
+
+        <aside class="anonymous-panel" aria-label="Anonymous presenta la misión de recuperación">
+          <div class="terminal-art" aria-hidden="true">
+            <span>RECOVERY_NODE_04</span>
+            <strong>24</strong>
+            <small>EXPEDIENTES DISPONIBLES</small>
+            <i></i><i></i><i></i><i></i>
+          </div>
+          <div class="briefing"><span>ALERTA ROJA</span><b>No abras archivos a ciegas. Preserva, verifica y recupera.</b></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="game" class="screen" aria-labelledby="vaultTitle">
+      <div class="hud glass">
+        <div><span>JUGADOR</span><strong id="hudPlayer">—</strong></div>
+        <div><span>RECUPERADOS</span><strong id="progressText">0 / 20</strong></div>
+        <div><span>PUNTOS</span><strong id="scoreText">0</strong></div>
+        <div><span>TIEMPO</span><strong id="timeText">00:00</strong></div>
+        <div class="progress"><i id="progressBar"></i></div>
+      </div>
+
+      <div class="mission-bar">
+        <div><p class="eyebrow">BÓVEDA DIGITAL COMPROMETIDA</p><h2 id="vaultTitle">Recupera los archivos</h2></div>
+        <div class="mission-actions">
+          <button id="saveExitBtn" class="secondary" type="button">GUARDAR Y SALIR</button>
+        </div>
+      </div>
+
+      <div class="workspace">
+        <section class="glass vault-panel" aria-labelledby="filesTitle">
+          <div class="panel-heading"><div><span>ÍNDICE DE BÓVEDA</span><h3 id="filesTitle">Expedientes</h3></div><strong id="remainingText">20 pendientes</strong></div>
+          <p class="mobile-note">Toca un expediente para abrir su prueba. Los recuperados quedan marcados en verde.</p>
+          <div id="fileGrid" class="file-grid" aria-live="polite"></div>
+          <div class="legend"><span><i class="pending"></i>Pendiente</span><span><i class="active-dot"></i>En análisis</span><span><i class="recovered"></i>Recuperado</span><span><i class="damaged"></i>Por reforzar</span></div>
+        </section>
+
+        <section id="decoder" class="glass decoder" aria-live="polite">
+          <div id="decoderEmpty" class="decoder-empty">
+            <div class="radar" aria-hidden="true"><i></i></div>
+            <p class="eyebrow">TERMINAL EN ESPERA</p>
+            <h3>Selecciona un expediente</h3>
+            <p>Cada archivo plantea una decisión de recuperación, respaldo, acceso o preservación de evidencia.</p>
+          </div>
+
+          <div id="challenge" class="challenge" hidden>
+            <div class="challenge-meta"><span id="challengeId">ER-001</span><b id="challengeSector">RESPALDO</b></div>
+            <div class="file-title"><span id="challengeIcon" aria-hidden="true">📁</span><div><small id="challengeFile">archivo.enc</small><h3 id="challengeTitle"></h3></div></div>
+            <p id="challengeScenario" class="scenario"></p>
+            <p id="challengeQuestion" class="question"></p>
+            <div id="optionList" class="option-list" aria-label="Opciones de respuesta"></div>
+            <button id="hintBtn" class="hint-button" type="button">◎ SOLICITAR PISTA (−25)</button>
+            <p id="hintText" class="hint-text" hidden></p>
+            <div id="feedback" class="feedback" hidden>
+              <h4 id="feedbackTitle"></h4>
+              <p id="feedbackText"></p>
+              <p class="action"><b>Protocolo recomendado:</b> <span id="actionText"></span></p>
+              <button id="continueBtn" class="primary" type="button">VOLVER A LA BÓVEDA <span>→</span></button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="results" class="screen" aria-labelledby="resultTitle">
+      <div class="glass results-card">
+        <p class="eyebrow">OPERACIÓN FINALIZADA · <span id="resultPlayer"></span></p>
+        <div id="resultRing" class="ring"><span id="percentText">0%</span></div>
+        <h2 id="resultTitle">Resultado</h2>
+        <p id="resultMessage"></p>
+        <div id="victoryNotice" class="victory-notice"></div>
+        <div class="result-grid">
+          <div><strong id="correctText">0</strong><span>Recuperados</span></div>
+          <div><strong id="wrongText">0</strong><span>Por reforzar</span></div>
+          <div><strong id="finalScoreText">0</strong><span>Puntos</span></div>
+          <div><strong id="finalTimeText">00:00</strong><span>Tiempo</span></div>
+        </div>
+        <div id="review" class="review"></div>
+        <div class="result-actions">
+          <button id="restartBtn" class="primary" type="button">JUGAR DE NUEVO</button>
+          <button id="resultScoreBtn" class="secondary" type="button">CONSULTAR SCORE</button>
+          <button id="printBtn" class="secondary" type="button">IMPRIMIR RESULTADO</button>
+          <a class="secondary result-home" href="../../index.html">VOLVER A LA PORTADA</a>
+        </div>
+        <p class="safety">Regla de oro: ante un incidente, primero contiene y preserva la evidencia; después recupera desde fuentes verificadas.</p>
+      </div>
+    </section>
+  </main>
+
+  <section id="scorePanel" class="overlay" hidden aria-hidden="true">
+    <div class="score-dialog glass" role="dialog" aria-modal="true" aria-labelledby="scoreTitle">
+      <div class="score-heading">
+        <div><p class="eyebrow">REGISTRO LOCAL COMPARTIDO</p><h2 id="scoreTitle">Score de jugadores</h2></div>
+        <button id="closeScoreBtn" class="icon-btn" type="button" aria-label="Cerrar score">×</button>
+      </div>
+      <p class="score-explainer">Una victoria se registra al obtener <strong>75 % o más</strong>. La escala reúne los resultados de todos los juegos de CiberAula en este navegador.</p>
+      <div id="scoreScaleLegend" class="scale-legend" aria-hidden="true"></div>
+      <div id="scoreList" class="score-list" aria-live="polite"></div>
+      <p id="emptyScore" class="empty-score" hidden>Aún no hay partidas finalizadas en este navegador.</p>
+      <p class="storage-note">Los datos y la misión en curso permanecen en el almacenamiento local; no se envían a un servidor.</p>
+    </div>
+  </section>
+
+  <footer><span>Material educativo · Escape room simulado</span><span>© 2026 Miller Rincón Tautiva · Todos los derechos reservados</span></footer>
+  <noscript>Este juego necesita JavaScript activado.</noscript>
+  <script src="pruebas.js"></script>
+  <script src="assets/game.js" defer></script>
+</body>
+</html>

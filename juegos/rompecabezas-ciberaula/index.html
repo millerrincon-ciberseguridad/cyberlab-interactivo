@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#03070c">
+  <meta name="description" content="Rompecabezas de identidad digital de CiberAula, compatible con computador, celular y GitHub Pages.">
+  <title>Rompecabezas | CiberAula</title>
+  <link rel="stylesheet" href="assets/game.css">
+</head>
+<body>
+  <div class="matrix" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="back-link" href="../../index.html" aria-label="Volver a la portada de CiberAula">← PORTADA</a>
+    <a class="brand" href="../../index.html" aria-label="CiberAula, entrenamiento digital interactivo">
+      <span class="brand-mark">CA</span>
+      <span><b>CIBER<span>AULA</span></b><small>Entrenamiento digital interactivo</small></span>
+    </a>
+    <div class="top-actions">
+      <button class="icon-btn" id="scoreBtn" type="button" title="Consultar score">▥ <span>SCORE</span></button>
+      <button class="icon-btn" id="fullBtn" type="button" title="Pantalla completa" aria-label="Activar pantalla completa">⛶</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="screen active" id="intro" aria-labelledby="introTitle">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">COLECCIÓN CIBERAULA · ROMPECABEZAS</p>
+          <h1 id="introTitle">ARMA TU<br><span>IDENTIDAD DIGITAL</span></h1>
+          <p class="lead">Reconstruye la imagen de Anonymous, las redes sociales y CiberAula. Elige la dificultad, juega con o sin tiempo y solicita pistas cuando las necesites.</p>
+
+          <form class="setup-card" id="setupForm" novalidate>
+            <label for="playerName">Nombre del jugador</label>
+            <input id="playerName" name="playerName" type="text" maxlength="40" autocomplete="name" placeholder="Escribe tu nombre" aria-describedby="nameHelp nameError">
+            <small id="nameHelp">Se comparte con los demás juegos de CiberAula en este navegador.</small>
+            <p class="field-error" id="nameError" role="alert" hidden>Escribe el nombre del jugador para comenzar.</p>
+
+            <fieldset>
+              <legend>Número de piezas</legend>
+              <div class="piece-options" role="radiogroup" aria-label="Número de piezas">
+                <label><input type="radio" name="pieceCount" value="20" checked><span><b>20</b><small>Inicio</small></span></label>
+                <label><input type="radio" name="pieceCount" value="50"><span><b>50</b><small>Reto</small></span></label>
+                <label><input type="radio" name="pieceCount" value="100"><span><b>100</b><small>Experto</small></span></label>
+                <label><input type="radio" name="pieceCount" value="500"><span><b>500</b><small>Élite</small></span></label>
+              </div>
+            </fieldset>
+
+            <label class="switch-row" for="timerToggle">
+              <span><b>Contador de tiempo</b><small>Desactívalo para jugar con calma.</small></span>
+              <span class="switch"><input id="timerToggle" type="checkbox" checked><i aria-hidden="true"></i></span>
+            </label>
+
+            <div class="player-snapshot" id="playerSnapshot" hidden>
+              <div><span>AVANCE DEL JUGADOR</span><b id="snapshotLabel">0 victorias</b></div>
+              <div class="mini-track"><i id="snapshotBar"></i></div>
+              <small id="snapshotMeta">0 partidas · 0 puntos</small>
+            </div>
+
+            <div class="resume-notice" id="resumeNotice" hidden>
+              <b>PARTIDA GUARDADA</b>
+              <span id="resumeText">Puedes continuar donde quedaste.</span>
+            </div>
+
+            <div class="setup-actions">
+              <button class="btn primary" id="startBtn" type="submit">MEZCLAR Y COMENZAR →</button>
+              <button class="btn secondary" id="resumeBtn" type="button" hidden>CONTINUAR PARTIDA</button>
+            </div>
+          </form>
+        </div>
+
+        <figure class="hero-visual">
+          <img src="assets/puzzle-image.jpg" alt="Anonymous junto a iconos de redes sociales y el logo completo de CiberAula">
+          <figcaption><span>20 → 500</span> piezas tradicionales · diseño adaptable</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="screen game-screen" id="game" aria-labelledby="gameTitle">
+      <h1 class="sr-only" id="gameTitle">Partida de rompecabezas</h1>
+      <div class="hud" aria-live="polite">
+        <div><small>JUGADOR</small><b id="hudPlayer">—</b></div>
+        <div><small>PIEZAS</small><b id="progressText">0 / 20</b></div>
+        <div><small>PUNTOS</small><b id="scoreText">0</b></div>
+        <div><small>TIEMPO</small><b id="timeText">00:00</b></div>
+      </div>
+      <div class="progress-track" aria-hidden="true"><i id="progressBar"></i></div>
+
+      <div class="game-actions">
+        <button class="btn ghost" id="saveExitBtn" type="button">← GUARDAR Y SALIR</button>
+        <div class="action-group">
+          <button class="btn ghost" id="zoomOutBtn" type="button" aria-label="Alejar tablero">−</button>
+          <output id="zoomText" aria-label="Nivel de zoom">100%</output>
+          <button class="btn ghost" id="zoomInBtn" type="button" aria-label="Acercar tablero">＋</button>
+          <button class="btn hint" id="hintBtn" type="button">◎ PISTA <small>−25</small></button>
+        </div>
+      </div>
+
+      <div class="instruction" id="instruction" role="status">Toca una pieza de la bandeja y luego su lugar en el tablero. También puedes arrastrarla.</div>
+
+      <section class="board-panel" aria-label="Tablero del rompecabezas">
+        <div class="board-scroll" id="boardScroll">
+          <canvas id="boardCanvas" width="1200" height="750" tabindex="0" aria-label="Tablero. Después de seleccionar una pieza, toca su posición correcta."></canvas>
+        </div>
+        <div class="board-feedback" id="boardFeedback" aria-live="assertive"></div>
+      </section>
+
+      <section class="tray-panel" aria-labelledby="trayTitle">
+        <div class="tray-head">
+          <div><p class="eyebrow">BANDEJA DE PIEZAS</p><h2 id="trayTitle">Selecciona una pieza</h2></div>
+          <div class="pager">
+            <button class="icon-btn" id="prevPageBtn" type="button" aria-label="Página anterior">←</button>
+            <span id="pageText">1 / 1</span>
+            <button class="icon-btn" id="nextPageBtn" type="button" aria-label="Página siguiente">→</button>
+          </div>
+        </div>
+        <canvas id="trayCanvas" width="1000" height="360" tabindex="0" aria-label="Bandeja de piezas sin colocar"></canvas>
+        <div class="selected-piece" id="selectedInfo">Ninguna pieza seleccionada.</div>
+      </section>
+    </section>
+
+    <section class="screen results-screen" id="results" aria-labelledby="resultTitle">
+      <div class="result-card">
+        <p class="eyebrow">MISIÓN COMPLETADA</p>
+        <h1 id="resultTitle">IMAGEN RECONSTRUIDA</h1>
+        <p><b id="resultPlayer">Jugador</b>, completaste el rompecabezas y recuperaste la identidad digital.</p>
+        <img class="result-image" src="assets/puzzle-image.jpg" alt="Imagen completa del rompecabezas terminado">
+        <div class="result-stats">
+          <div><small>PIEZAS</small><b id="resultPieces">20</b></div>
+          <div><small>TIEMPO</small><b id="resultTime">00:00</b></div>
+          <div><small>PISTAS</small><b id="resultHints">0</b></div>
+          <div><small>PUNTOS</small><b id="resultScore">0</b></div>
+        </div>
+        <div class="victory-notice" id="victoryNotice">VICTORIA REGISTRADA EN CIBERAULA</div>
+        <div class="result-actions">
+          <button class="btn primary" id="restartBtn" type="button">JUGAR OTRA VEZ →</button>
+          <button class="btn secondary" id="resultScoreBtn" type="button">VER SCORE</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="scorePanel" role="dialog" aria-modal="true" aria-labelledby="scoreTitle" aria-hidden="true" hidden>
+    <div class="modal-card">
+      <button class="modal-close" id="closeScoreBtn" type="button" aria-label="Cerrar score">×</button>
+      <p class="eyebrow">CIBERAULA · SCORE COMPARTIDO</p>
+      <h2 id="scoreTitle">Progreso de jugadores</h2>
+      <p class="modal-intro">Victorias y puntos acumulados en los juegos que usan <code>ciberaula:score:v1</code>.</p>
+      <div class="score-list" id="scoreList"></div>
+      <p class="empty-score" id="emptyScore">Aún no hay partidas registradas.</p>
+    </div>
+  </div>
+
+  <noscript>Este juego necesita JavaScript activado.</noscript>
+  <script src="assets/game.js"></script>
+</body>
+</html>

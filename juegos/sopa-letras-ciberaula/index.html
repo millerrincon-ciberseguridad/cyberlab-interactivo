@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#03070c">
+  <meta name="description" content="Sopa de letras de ciberseguridad para CiberAula.">
+  <title>Sopa de Letras | CiberAula</title>
+  <link rel="icon" href="assets/card-sopa-letras.webp" type="image/webp">
+  <link rel="stylesheet" href="assets/game.css">
+</head>
+<body>
+  <div class="scene" aria-hidden="true"></div>
+  <header class="site-header">
+	<a class="back-link" href="../../index.html" aria-label="Volver a la portada de CiberAula">← PORTADA</a>
+    <a class="brand" href="../../index.html" aria-label="Volver a la portada de CiberAula">
+      <span class="brand-mark">CA</span>
+      <span><b>CIBERAULA</b><small>ENTRENAMIENTO DIGITAL INTERACTIVO</small></span>
+    </a>
+	
+    <button class="header-button" id="scoreBtn" type="button">CONSULTAR SCORE</button>
+  </header>
+
+  <main>
+    <section class="screen active" id="intro" aria-labelledby="introTitle">
+      <div class="intro-copy">
+        <p class="eyebrow">JUEGO 09 · VOCABULARIO DE CIBERSEGURIDAD</p>
+        <h1 id="introTitle">SOPA DE<br><em>LETRAS</em></h1>
+        <p class="lead">Encuentra terminología clave de seguridad digital. Arrastra desde la primera hasta la última letra; también puedes seleccionar en sentido inverso.</p>
+        <ul class="feature-list" aria-label="Características del juego">
+          <li>20, 30, 40 o 50 palabras</li>
+          <li>Selección por arrastre o toque</li>
+          <li>Compatible con computador y celular</li>
+          <li>Sin pistas</li>
+        </ul>
+      </div>
+
+      <form class="setup-card" id="setupForm" novalidate>
+        <div class="setup-top">
+          <span>CONFIGURAR MISIÓN</span>
+          <strong>09</strong>
+        </div>
+        <label for="playerName">NOMBRE DEL JUGADOR</label>
+        <input id="playerName" name="playerName" type="text" maxlength="40" autocomplete="name" placeholder="Escribe tu nombre" required>
+        <p class="field-error" id="nameError" hidden>Escribe un nombre para registrar el score.</p>
+
+        <fieldset>
+          <legend>CANTIDAD DE PALABRAS</legend>
+          <div class="level-options">
+            <label><input type="radio" name="wordCount" value="20" checked><span><b>20</b><small>INICIAL</small></span></label>
+            <label><input type="radio" name="wordCount" value="30"><span><b>30</b><small>MEDIO</small></span></label>
+            <label><input type="radio" name="wordCount" value="40"><span><b>40</b><small>AVANZADO</small></span></label>
+            <label><input type="radio" name="wordCount" value="50"><span><b>50</b><small>EXPERTO</small></span></label>
+          </div>
+        </fieldset>
+
+        <div class="record-preview" aria-live="polite">
+          <span>REGISTRO ACTUAL</span>
+          <strong id="recordText">Sin partidas registradas</strong>
+        </div>
+        <button class="primary-button" type="submit">INICIAR BÚSQUEDA <span>→</span></button>
+      </form>
+    </section>
+
+    <section class="screen game-screen" id="game" aria-labelledby="gameTitle">
+      <div class="game-heading">
+        <div>
+          <p class="eyebrow">MISIÓN EN CURSO · <span id="hudPlayer">JUGADOR</span></p>
+          <h1 id="gameTitle">RASTREA LOS <em>CONCEPTOS</em></h1>
+        </div>
+        <button class="quiet-button" id="exitBtn" type="button">SALIR</button>
+      </div>
+
+      <div class="hud" aria-label="Estado de la partida">
+        <div><small>DESCUBIERTAS</small><strong><span id="foundCount">0</span>/<span id="totalCount">20</span></strong></div>
+        <div><small>SCORE</small><strong id="scoreValue">0</strong></div>
+        <div><small>TIEMPO</small><strong id="timeValue">00:00</strong></div>
+        <div class="progress-block"><small>PROGRESO</small><div class="progress-track"><span id="progressBar"></span></div></div>
+      </div>
+
+      <div class="play-layout">
+        <section class="board-panel" aria-labelledby="boardTitle">
+          <div class="panel-title">
+            <div><span>01</span><h2 id="boardTitle">MATRIZ DE BÚSQUEDA</h2></div>
+            <p id="selectionStatus" aria-live="polite">Arrastra en línea recta desde la primera letra.</p>
+          </div>
+          <div class="board-shell">
+            <div class="word-grid" id="wordGrid" role="grid" aria-label="Sopa de letras"></div>
+          </div>
+          <p class="mobile-note">En celular: arrastra sobre las letras. Si prefieres precisión, toca la primera letra y después la última.</p>
+        </section>
+
+        <aside class="words-panel" aria-labelledby="wordsTitle">
+          <div class="panel-title compact">
+            <div><span>02</span><h2 id="wordsTitle">PALABRAS</h2></div>
+            <strong id="remainingText">20 PENDIENTES</strong>
+          </div>
+          <ol class="word-list" id="wordList"></ol>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>CIBERAULA · APRENDE · PRACTICA · PROTÉGETE</span>
+    <span>Juego estático · Datos guardados en este navegador</span>
+  </footer>
+
+  <div class="modal" id="completionModal" hidden role="dialog" aria-modal="true" aria-labelledby="completionTitle">
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+    <div class="completion-card">
+      <div class="success-orbit"><span>✓</span></div>
+      <p class="eyebrow">MISIÓN COMPLETADA</p>
+      <h2 id="completionTitle">¡ENCONTRASTE<br>TODAS LAS PALABRAS!</h2>
+      <p class="completion-message"><strong id="resultPlayer">Jugador</strong>, dominaste la matriz de ciberseguridad.</p>
+      <div class="result-grid">
+        <div><small>PALABRAS</small><strong id="resultWords">20/20</strong></div>
+        <div><small>TIEMPO</small><strong id="resultTime">00:00</strong></div>
+        <div><small>SCORE</small><strong id="resultScore">0</strong></div>
+      </div>
+      <p class="victory-line" id="victoryLine">VICTORIA REGISTRADA EN CIBERAULA</p>
+      <div class="modal-actions">
+        <button class="primary-button" id="playAgainBtn" type="button">JUGAR DE NUEVO</button>
+        <button class="quiet-button" id="resultScoreBtn" type="button">VER SCORE</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="scoreModal" hidden role="dialog" aria-modal="true" aria-labelledby="scoreTitle">
+    <div class="score-card">
+      <button class="modal-close" id="closeScoreBtn" type="button" aria-label="Cerrar score">×</button>
+      <p class="eyebrow">CIBERAULA · SCORE COMPARTIDO</p>
+      <h2 id="scoreTitle">PROGRESO DE JUGADORES</h2>
+      <p class="score-intro">Victorias y puntos acumulados por los juegos que usan <code>ciberaula:score:v1</code>.</p>
+      <div class="score-list" id="scoreList"></div>
+      <p class="empty-score" id="emptyScore">Aún no hay partidas registradas.</p>
+    </div>
+  </div>
+
+  <script src="assets/game.js"></script>
+</body>
+</html>

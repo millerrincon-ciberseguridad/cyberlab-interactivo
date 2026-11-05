@@ -1,0 +1,9 @@
+{
+  "name": "ciberaula-ciberescuadron-1942",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Juego autónomo CiberEscuadrón 1942 para Ciberaula",
+  "scripts": {
+    "test": "node tests/verify-game.mjs"
+  }
+}

@@ -1,0 +1,70 @@
+<!-- Tarjeta manual para la portada de Ciberaula. Instale esta carpeta dentro de /juegos/. -->
+<a class="ciberaula-game-card ciberaula-game-card--arkanoid"
+   href="./juegos/ciberaula-ciberarkanoid/index.html"
+   aria-label="Abrir CiberArkanoid, juego de seguridad digital">
+  <span class="ciberaula-game-card__media" aria-hidden="true"></span>
+  <span class="ciberaula-game-card__body">
+    <small>NUEVA MISIÓN · 5 NIVELES</small>
+    <strong>CiberArkanoid</strong>
+    <span>Rompe tabiques, activa defensas digitales y esquiva malware, phishing y ransomware.</span>
+    <b>DEFENDER LA RED →</b>
+  </span>
+</a>
+
+<style>
+  /* Estilos encapsulados; pueden moverse a la hoja de estilos de la portada. */
+  .ciberaula-game-card--arkanoid {
+    --ca-cyan: #38e8ff;
+    --ca-green: #baff36;
+    display: grid;
+    grid-template-rows: 165px 1fr;
+    overflow: hidden;
+    min-height: 355px;
+    color: #f2fbff;
+    text-decoration: none;
+    border: 1px solid rgba(56, 232, 255, .34);
+    border-radius: 18px;
+    background: #06131e;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .3);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .ciberaula-game-card--arkanoid:hover,
+  .ciberaula-game-card--arkanoid:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--ca-cyan);
+    box-shadow: 0 24px 62px rgba(0, 0, 0, .38), 0 0 28px rgba(56, 232, 255, .13);
+    outline: none;
+  }
+  .ciberaula-game-card--arkanoid .ciberaula-game-card__media {
+    display: block;
+    background:
+      linear-gradient(0deg, #06131e 0%, transparent 75%),
+      linear-gradient(90deg, rgba(2, 10, 17, .3), transparent),
+      url("./juegos/ciberaula-ciberarkanoid/assets/anonymous-cyber-breaker-bg.jpg") center 37% / cover no-repeat;
+  }
+  .ciberaula-game-card--arkanoid .ciberaula-game-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 20px;
+  }
+  .ciberaula-game-card--arkanoid small {
+    color: var(--ca-green);
+    font: 900 .68rem/1.2 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: .12em;
+  }
+  .ciberaula-game-card--arkanoid strong {
+    font: 900 1.55rem/1.1 ui-sans-serif, system-ui, sans-serif;
+  }
+  .ciberaula-game-card--arkanoid .ciberaula-game-card__body > span {
+    color: #a9c4ce;
+    font: 400 .9rem/1.45 ui-sans-serif, system-ui, sans-serif;
+  }
+  .ciberaula-game-card--arkanoid b {
+    margin-top: auto;
+    color: var(--ca-cyan);
+    font: 900 .78rem/1.2 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: .06em;
+  }
+</style>

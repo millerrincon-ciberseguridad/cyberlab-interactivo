@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07131d">
+  <meta name="description" content="CiberCrucigrama: juego educativo de ciberseguridad para Ciberaula.">
+  <title>CiberCrucigrama · Ciberaula</title>
+  <link rel="preload" as="image" href="assets/anonymous-crossword-cyber-bg.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#tablero">Saltar al crucigrama</a>
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="home-link" href="../../index.html" aria-label="Regresar a la portada de Ciberaula">
+      <span aria-hidden="true">←</span>
+      <span>Regresar a la portada</span>
+    </a>
+    <div class="brand" aria-label="CiberCrucigrama">
+      <span class="brand-mark" aria-hidden="true">#</span>
+      <span><strong>CIBER</strong>CRUCIGRAMA</span>
+    </div>
+    <div class="top-stats" aria-live="polite">
+      <span class="stat"><small>Jugador</small><b id="playerLabel">—</b></span>
+      <span class="stat"><small>Nivel</small><b id="levelLabel">10</b></span>
+      <span class="stat"><small>Tiempo</small><b id="timerLabel">00:00</b></span>
+      <span class="stat"><small>Score</small><b id="scoreLabel">0</b></span>
+    </div>
+    <button id="menuButton" class="icon-button" type="button" aria-label="Abrir configuración" title="Configuración">⚙</button>
+  </header>
+
+  <main class="layout">
+    <section class="board-panel glass" aria-labelledby="boardTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">OPERACIÓN: PALABRA SEGURA</p>
+          <h1 id="boardTitle">Descifra la red</h1>
+        </div>
+        <div class="progress-wrap">
+          <span id="progressText">0 / 10 palabras</span>
+          <div class="progress-track" role="progressbar" aria-label="Progreso" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
+            <span id="progressBar"></span>
+          </div>
+        </div>
+      </div>
+      <div id="boardScroller" class="board-scroller">
+        <div id="tablero" class="crossword" role="group" aria-label="Tablero del crucigrama"></div>
+      </div>
+      <p class="board-help">Toca una casilla o una pista. Escribe una letra por celda; usa las flechas para moverte.</p>
+    </section>
+
+    <aside class="side-panel glass" aria-labelledby="cluesTitle">
+      <div class="side-heading">
+        <div>
+          <p class="eyebrow">INTELIGENCIA</p>
+          <h2 id="cluesTitle">Pistas</h2>
+        </div>
+        <button id="hintButton" class="secondary-button" type="button">💡 Revelar letra <span>−25</span></button>
+      </div>
+      <div class="clue-tabs" role="tablist" aria-label="Filtrar pistas">
+        <button class="tab active" type="button" data-filter="all" role="tab" aria-selected="true">Todas</button>
+        <button class="tab" type="button" data-filter="H" role="tab" aria-selected="false">Horizontales</button>
+        <button class="tab" type="button" data-filter="V" role="tab" aria-selected="false">Verticales</button>
+      </div>
+      <ol id="clueList" class="clue-list"></ol>
+      <div class="session-card">
+        <div><span>Partidas</span><b id="gamesStat">0</b></div>
+        <div><span>Victorias</span><b id="winsStat">0</b></div>
+        <div><span>Score total</span><b id="totalScoreStat">0</b></div>
+      </div>
+    </aside>
+  </main>
+
+  <dialog id="setupDialog" class="modal" aria-labelledby="setupTitle">
+    <form id="setupForm" method="dialog">
+      <p class="eyebrow">ACCESO A LA MISIÓN</p>
+      <h2 id="setupTitle">Configura tu partida</h2>
+      <p class="modal-copy">Identifícate, elige el nivel y completa el crucigrama de ciberseguridad.</p>
+      <label class="field">Nombre del jugador
+        <input id="playerInput" name="player" maxlength="40" autocomplete="name" required placeholder="Escribe tu nombre">
+      </label>
+      <fieldset>
+        <legend>Número de palabras</legend>
+        <div class="level-grid">
+          <label><input type="radio" name="level" value="10" checked><span>10<small>Inicial</small></span></label>
+          <label><input type="radio" name="level" value="20"><span>20<small>Agente</small></span></label>
+          <label><input type="radio" name="level" value="30"><span>30<small>Analista</small></span></label>
+          <label><input type="radio" name="level" value="40"><span>40<small>Experto</small></span></label>
+          <label><input type="radio" name="level" value="50"><span>50<small>Élite</small></span></label>
+        </div>
+      </fieldset>
+      <label class="toggle-row">
+        <span><b>Temporizador</b><small>Cuenta el tiempo de la partida</small></span>
+        <input id="timerToggle" type="checkbox" checked role="switch">
+      </label>
+      <div class="modal-actions">
+        <a class="ghost-button home-link-modal" href="../../index.html">← Regresar a la portada</a>
+        <button id="cancelSetup" class="ghost-button" type="button">Cancelar</button>
+        <button class="primary-button" type="submit">Iniciar misión</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="victoryDialog" class="modal victory" aria-labelledby="victoryTitle">
+    <div class="victory-burst" aria-hidden="true"></div>
+    <div class="victory-icon" aria-hidden="true">✓</div>
+    <p class="eyebrow">MISIÓN CUMPLIDA</p>
+    <h2 id="victoryTitle">¡Red descifrada!</h2>
+    <p id="victoryMessage">Completaste todas las palabras.</p>
+    <div class="victory-score"><small>SCORE DE LA PARTIDA</small><strong id="victoryScore">0</strong></div>
+    <div class="modal-actions centered">
+      <button id="closeVictory" class="ghost-button" type="button">Ver tablero</button>
+      <button id="playAgain" class="primary-button" type="button">Nueva misión</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="words.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05090f">
+  <meta name="description" content="Construye una contraseña resistente: crea contraseñas y frases de acceso, evalúa riesgos y aprende a protegerlas con MFA.">
+  <meta name="robots" content="noarchive">
+  <title>Construye una contraseña resistente | CiberAula</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="assets/game.css">
+</head>
+<body>
+  <div class="anonymous-bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="home-link" href="../../index.html" aria-label="Volver a la portada de juegos">← PORTADA</a>
+    <div class="brand">
+      <span class="tag">COLECCIÓN CIBERAULA · JUEGO 03</span>
+      <h1>CONSTRUYE UNA <em>CONTRASEÑA RESISTENTE</em></h1>
+    </div>
+    <!-- LOGO CONFIGURABLE: reemplaza assets/logo.png conservando ese nombre. -->
+    <img class="corner-logo" src="assets/logo.png" alt="Logo de la organización" title="Reemplaza assets/logo.png por tu propio logo">
+    <div class="tools">
+      <button id="scoreBtn" class="score-button" type="button" aria-haspopup="dialog">▥ SCORE</button>
+      <button id="fullBtn" class="icon-btn" type="button" aria-label="Pantalla completa">⛶</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="intro" class="screen active" aria-labelledby="introTitle">
+      <div class="intro-layout">
+        <div class="glass hero">
+          <p class="eyebrow">LABORATORIO DE CREDENCIALES</p>
+          <h2 id="introTitle">Una clave fuerte no se adivina. Se diseña.</h2>
+          <p>Arrastra fragmentos para construir contraseñas o frases de acceso. En celular, toca un fragmento para agregarlo. Después activa las protecciones y somete tu creación a siete pruebas.</p>
+          <div class="setup">
+            <label class="player-field">Nombre del jugador
+              <input id="playerName" type="text" maxlength="40" autocomplete="nickname" placeholder="Escribe tu nombre" required>
+              <small>El score se guarda solo en este navegador y se comparte con los demás juegos.</small>
+            </label>
+            <label>Desafíos por partida
+              <select id="roundSize">
+                <option value="10">10 · Entrenamiento rápido</option>
+                <option value="20" selected>20 · Misión completa</option>
+                <option value="all">Todos los disponibles</option>
+              </select>
+            </label>
+          </div>
+          <div id="playerSnapshot" class="player-snapshot" hidden aria-live="polite">
+            <div><span>AVANCE DEL JUGADOR</span><strong id="snapshotLabel"></strong></div>
+            <div class="mini-scale"><i id="snapshotBar"></i></div>
+            <small id="snapshotMeta"></small>
+          </div>
+          <p id="nameError" class="name-error" role="alert" hidden>Escribe el nombre del jugador para iniciar.</p>
+          <button id="startBtn" class="primary" type="button">ABRIR EL LABORATORIO <span>→</span></button>
+          <div class="how">
+            <div><b>1</b><span>Construye</span></div>
+            <div><b>2</b><span>Activa protecciones</span></div>
+            <div><b>3</b><span>Evalúa y aprende</span></div>
+          </div>
+        </div>
+
+        <figure class="anonymous-panel" aria-label="Anonymous protege una llave digital y un candado">
+          <img src="assets/anonymous-password.webp" alt="Personaje Anonymous frente a un candado digital luminoso">
+          <figcaption><span>ACCESO DENEGADO</span><b>Convierte cada carácter en una barrera.</b></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="game" class="screen" aria-labelledby="challengeTitle">
+      <div class="hud glass">
+        <div><span>JUGADOR</span><strong id="hudPlayer">—</strong></div>
+        <div><span>DESAFÍOS</span><strong id="progressText">0 / 20</strong></div>
+        <div><span>PUNTOS</span><strong id="scoreText">0</strong></div>
+        <div><span>RESISTENTES</span><strong id="strongText">0</strong></div>
+        <div class="progress"><i id="progressBar"></i></div>
+      </div>
+
+      <article class="glass lab-card">
+        <div class="challenge-heading">
+          <div><p class="eyebrow"><span id="challengeId">CR-001</span> · <span id="challengeType">FRASE DE ACCESO</span></p><h2 id="challengeTitle">Servicio</h2></div>
+          <button id="quitBtn" class="secondary" type="button">SALIR</button>
+        </div>
+        <p id="challengeContext" class="challenge-context"></p>
+
+        <section class="builder" aria-labelledby="builderTitle">
+          <div class="builder-top">
+            <div><span class="step">01</span><h3 id="builderTitle">Construye tu propuesta</h3></div>
+            <span id="lengthBadge" class="length-badge">0 / 16</span>
+          </div>
+          <p class="touch-note">Computador: arrastra fragmentos. Celular o teclado: toca “AGREGAR”. También puedes escribir un fragmento propio.</p>
+          <div id="palette" class="palette" aria-label="Fragmentos disponibles"></div>
+          <div class="custom-row">
+            <label for="customFragment">Fragmento propio</label>
+            <div><input id="customFragment" type="text" maxlength="24" autocomplete="off" placeholder="Ej.: Neblina"><button id="addCustomBtn" class="secondary compact" type="button">AGREGAR</button></div>
+          </div>
+          <div id="buildZone" class="build-zone" tabindex="0" role="list" aria-label="Contraseña construida. Suelta aquí los fragmentos.">
+            <p id="emptyBuild">Arrastra o agrega al menos tres fragmentos.</p>
+          </div>
+          <div class="build-actions">
+            <button id="undoBtn" class="secondary compact" type="button">↶ QUITAR ÚLTIMO</button>
+            <button id="clearBtn" class="secondary compact" type="button">LIMPIAR</button>
+            <button id="visibilityBtn" class="secondary compact" type="button" aria-pressed="false">MOSTRAR</button>
+          </div>
+          <div class="password-preview" aria-live="polite"><span>VISTA PREVIA</span><strong id="passwordPreview">••••••••</strong></div>
+        </section>
+
+        <section class="protections" aria-labelledby="protectionsTitle">
+          <div class="builder-top"><div><span class="step">02</span><h3 id="protectionsTitle">Activa las protecciones</h3></div></div>
+          <label class="switch-row"><input id="uniqueCheck" type="checkbox"><span><b>Clave exclusiva</b><small>No la uso ni la he usado en ningún otro servicio.</small></span></label>
+          <label class="switch-row"><input id="mfaCheck" type="checkbox"><span><b>Autenticación multifactor</b><small>La cuenta pedirá un segundo factor además de la contraseña.</small></span></label>
+        </section>
+
+        <button id="evaluateBtn" class="primary evaluate" type="button">EVALUAR RESISTENCIA <span>→</span></button>
+
+        <section id="feedback" class="feedback" hidden aria-live="polite">
+          <div class="meter-block">
+            <div><span>RESISTENCIA</span><strong id="strengthText">0%</strong></div>
+            <div class="strength-meter"><i id="strengthBar"></i></div>
+            <h3 id="feedbackTitle"></h3>
+            <p id="feedbackSummary"></p>
+          </div>
+          <div id="criteriaList" class="criteria-list"></div>
+          <p class="education"><b>Aprendizaje clave:</b> <span id="educationText"></span></p>
+          <button id="continueBtn" class="primary" type="button">SIGUIENTE DESAFÍO <span>→</span></button>
+        </section>
+      </article>
+    </section>
+
+    <section id="results" class="screen" aria-labelledby="resultTitle">
+      <div class="glass results-card">
+        <p class="eyebrow">LABORATORIO FINALIZADO · <span id="resultPlayer"></span></p>
+        <div id="resultRing" class="ring"><span id="percentText">0%</span></div>
+        <h2 id="resultTitle">Resultado</h2>
+        <p id="resultMessage"></p>
+        <div id="victoryNotice" class="victory-notice"></div>
+        <div class="result-grid">
+          <div><strong id="correctText">0</strong><span>Resistentes</span></div>
+          <div><strong id="wrongText">0</strong><span>Por reforzar</span></div>
+          <div><strong id="finalScoreText">0</strong><span>Puntos</span></div>
+        </div>
+        <div id="review" class="review"></div>
+        <div class="result-actions">
+          <button id="restartBtn" class="primary" type="button">JUGAR DE NUEVO</button>
+          <button id="resultScoreBtn" class="secondary" type="button">CONSULTAR SCORE</button>
+          <button id="printBtn" class="secondary" type="button">IMPRIMIR RESULTADO</button>
+          <a class="secondary result-home" href="../../index.html">VOLVER A LA PORTADA</a>
+        </div>
+        <p class="safety">Regla de oro: usa una contraseña diferente para cada servicio, guárdalas en un gestor y activa MFA.</p>
+      </div>
+    </section>
+  </main>
+
+  <section id="scorePanel" class="overlay" hidden aria-hidden="true">
+    <div class="score-dialog glass" role="dialog" aria-modal="true" aria-labelledby="scoreTitle">
+      <div class="score-heading">
+        <div><p class="eyebrow">REGISTRO LOCAL COMPARTIDO</p><h2 id="scoreTitle">Score de jugadores</h2></div>
+        <button id="closeScoreBtn" class="icon-btn" type="button" aria-label="Cerrar score">×</button>
+      </div>
+      <p class="score-explainer">Una victoria se registra al obtener <strong>75 % o más</strong>. La escala reúne los resultados de todos los juegos de CiberAula en este navegador.</p>
+      <div id="scoreScaleLegend" class="scale-legend" aria-hidden="true"></div>
+      <div id="scoreList" class="score-list" aria-live="polite"></div>
+      <p id="emptyScore" class="empty-score" hidden>Aún no hay partidas finalizadas en este navegador.</p>
+      <p class="storage-note">Los datos permanecen en el almacenamiento local; no se envían a un servidor.</p>
+    </div>
+  </section>
+
+  <footer><span>Material educativo · Laboratorio de contraseñas</span><span>© 2026 Miller Rincón Tautiva · Todos los derechos reservados</span></footer>
+  <noscript>Este juego necesita JavaScript activado.</noscript>
+  <script src="pruebas.js"></script>
+  <script src="assets/game.js" defer></script>
+</body>
+</html>

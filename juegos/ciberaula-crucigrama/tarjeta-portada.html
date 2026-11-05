@@ -1,0 +1,69 @@
+<!-- Tarjeta manual para la portada de Ciberaula. La carpeta del juego se instala dentro de /juegos/. -->
+<a class="ciberaula-game-card ciberaula-game-card--crossword"
+   href="./juegos/ciberaula-crucigrama/index.html"
+   aria-label="Abrir CiberCrucigrama, juego de ciberseguridad">
+  <span class="ciberaula-game-card__media" aria-hidden="true"></span>
+  <span class="ciberaula-game-card__body">
+    <small>NUEVA MISIÓN · 10–50 PALABRAS</small>
+    <strong>CiberCrucigrama</strong>
+    <span>Descifra conceptos de ciberseguridad, solicita pistas y supera tu mejor score.</span>
+    <b>JUGAR AHORA →</b>
+  </span>
+</a>
+
+<style>
+  /* Estilos encapsulados de la tarjeta; se pueden mover a la hoja de estilos de la portada. */
+  .ciberaula-game-card--crossword {
+    --cc-cyan: #30e7ff;
+    --cc-green: #b8ff38;
+    display: grid;
+    grid-template-rows: 160px 1fr;
+    overflow: hidden;
+    min-height: 350px;
+    color: #eefcff;
+    text-decoration: none;
+    border: 1px solid rgba(48, 231, 255, .3);
+    border-radius: 18px;
+    background: #071923;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .28);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .ciberaula-game-card--crossword:hover,
+  .ciberaula-game-card--crossword:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--cc-cyan);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, .36), 0 0 24px rgba(48, 231, 255, .12);
+    outline: none;
+  }
+  .ciberaula-game-card--crossword .ciberaula-game-card__media {
+    display: block;
+    background:
+      linear-gradient(0deg, #071923 0%, transparent 70%),
+      url("./juegos/ciberaula-crucigrama/assets/anonymous-crossword-cyber-bg.jpg") center 38% / cover no-repeat;
+  }
+  .ciberaula-game-card--crossword .ciberaula-game-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 20px;
+  }
+  .ciberaula-game-card--crossword small {
+    color: var(--cc-green);
+    font: 800 .68rem/1.2 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: .12em;
+  }
+  .ciberaula-game-card--crossword strong {
+    font: 800 1.55rem/1.1 ui-sans-serif, system-ui, sans-serif;
+  }
+  .ciberaula-game-card--crossword .ciberaula-game-card__body > span {
+    color: #a9c4ce;
+    font: 400 .9rem/1.45 ui-sans-serif, system-ui, sans-serif;
+  }
+  .ciberaula-game-card--crossword b {
+    margin-top: auto;
+    color: var(--cc-cyan);
+    font: 800 .78rem/1.2 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: .06em;
+  }
+</style>
