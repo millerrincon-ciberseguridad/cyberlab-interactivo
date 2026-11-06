@@ -145,7 +145,18 @@ window.CIBERAULA_GAMES = [
     imagen: "assets/images/cards/juego-12.webp",
     href: "juegos/ciberaula-ciberescuadron-1942/index.html",
     habilitado: false
+  },
+ {
+    id: "juego-13",
+    numero: "13",
+    titulo: "PacMan - Neutraliza el Riesgo",
+    descripcion: "Adquiere protección y evita que el Malware te consuma.",
+    etiqueta: "1 INTERACCIÓN",
+    imagen: "assets/images/cards/juego-13.webp",
+    href: "juegos/ciberaula-ciberpac/index.html",
+    habilitado: false
   }
+
 
 
 
