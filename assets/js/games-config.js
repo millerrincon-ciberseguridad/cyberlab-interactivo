@@ -37,7 +37,7 @@ window.CIBERAULA_GAMES = [
   {
     id: "juego-02",
     numero: "02",
-    titulo: "El hacker está dentro",
+    titulo: "El hacker Vigila",
     descripcion: "Explora una oficina, encuentra riesgos ocultos y elige cómo neutralizarlos antes de que sean aprovechados.",
     etiqueta: "24 PRUEBAS",
     imagen: "assets/images/cards/juego-02.webp",
@@ -154,7 +154,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "1 INTERACCIÓN",
     imagen: "assets/images/cards/juego-13.webp",
     href: "juegos/ciberaula-ciberpac/index.html",
-    habilitado: false
+    habilitado: true
   }
 
 
