@@ -42,7 +42,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "24 PRUEBAS",
     imagen: "assets/images/cards/juego-02.webp",
     href: "juegos/el-hacker-esta-dentro/index.html",
-    habilitado: false
+    habilitado: true
   },
 
   {
