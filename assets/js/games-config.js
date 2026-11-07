@@ -41,7 +41,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "24 PRUEBAS",
     imagen: "assets/images/cards/juego-02.webp",
     href: "juegos/el-hacker-esta-dentro/index.html",
-    habilitado: true
+    habilitado: false
   },
 
   {
@@ -153,7 +153,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "1 INTERACCIÓN",
     imagen: "assets/images/cards/juego-13.webp",
     href: "juegos/ciberaula-ciberpac/index.html",
-    habilitado: true
+    habilitado: false
   }
 
 
