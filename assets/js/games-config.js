@@ -13,7 +13,6 @@
 ╔══════════════════════════════════════════════════════════════════════╗
 ║  ZONA EDITABLE — ENLACES DE LOS JUEGOS                             ║
 ║                                                                      ║
-║  LOS JUEGOS 01 A 07 YA ESTÁN CONECTADOS.                             ║
 ║                                                                      ║
 ║  Para cambiar una tarjeta, edita titulo, descripcion, etiqueta,      ║
 ║  imagen y href. Usa siempre rutas relativas para GitHub Pages.       ║
