@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071520">
+  <meta name="description" content="Ciber2048: combina superpoderes de ciberseguridad y aprende a protegerte mientras juegas.">
+  <title>Ciber2048 · Superpoderes de ciberseguridad</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#tablero">Saltar al tablero</a>
+
+  <main class="app" id="app">
+    <header class="topbar glass">
+      <div class="identity-block">
+        <a class="company-logo" href="../../index.html" aria-label="Regresar a la portada de CiberAula">
+          <img src="assets/logo.png" alt="Logo de Comfacundi">
+        </a>
+        <div class="brand-block">
+          <div class="brand-kicker">CIBERAULA · MISIÓN DIGITAL</div>
+          <h1><span>2048</span> Ciberpoderes</h1>
+          <p>Combina defensas. Desbloquea conocimiento. Llega al nivel SOC.</p>
+        </div>
+      </div>
+
+      <div class="header-side">
+        <a class="back-home" href="../../index.html" aria-label="Regresar a la portada de CiberAula">
+          <span aria-hidden="true">←</span> Regresar a la portada
+        </a>
+        <div class="player-strip" aria-label="Información de la partida">
+        <div class="player-chip">
+          <span class="mini-label">AGENTE</span>
+          <strong id="playerName">—</strong>
+          <button id="changePlayerBtn" class="icon-btn" type="button" aria-label="Cambiar jugador" title="Cambiar jugador">✎</button>
+        </div>
+        <div class="score-card">
+          <span>PUNTAJE</span>
+          <strong id="score">0</strong>
+          <b id="scoreGain" aria-live="polite"></b>
+        </div>
+        <div class="score-card accent">
+          <span>RÉCORD</span>
+          <strong id="bestScore">0</strong>
+        </div>
+          <div class="score-card total">
+            <span>ACUMULADO</span>
+            <strong id="totalScore">0</strong>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="anonymous-spotlight" role="img" aria-label="Persona con máscara de Anonymous frente a un sistema 2048">
+      <div>
+        <span>ESCENARIO DE MISIÓN</span>
+        <strong>ANONYMOUS · PROTOCOLO 2048</strong>
+      </div>
+    </section>
+
+    <section class="game-layout">
+      <section class="game-column" aria-labelledby="gameHeading">
+        <div class="mission glass">
+          <div>
+            <span class="mini-label">MISIÓN ACTIVA</span>
+            <h2 id="gameHeading">Construye tu defensa digital</h2>
+          </div>
+          <div class="actions">
+            <button id="undoBtn" class="btn ghost" type="button" disabled>↶ Deshacer</button>
+            <button id="newGameBtn" class="btn primary" type="button">＋ Nueva partida</button>
+            <button id="printBtn" class="btn cyan" type="button">Resultado PDF</button>
+          </div>
+        </div>
+
+        <div class="board-shell">
+          <div id="tablero" class="board" role="grid" aria-label="Tablero de Ciber2048" tabindex="0"></div>
+          <div id="motionLayer" class="motion-layer" aria-hidden="true"></div>
+          <div id="gameOverlay" class="game-overlay" hidden>
+            <div class="overlay-card">
+              <div id="overlayIcon" class="overlay-icon">🛡️</div>
+              <h2 id="overlayTitle">Misión completada</h2>
+              <p id="overlayText"></p>
+              <div class="overlay-actions">
+                <button id="continueBtn" class="btn cyan" type="button">Seguir jugando</button>
+                <button id="restartOverlayBtn" class="btn primary" type="button">Nueva partida</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mobile-controls glass" aria-label="Controles táctiles">
+          <button type="button" data-move="up" aria-label="Mover arriba">▲</button>
+          <div>
+            <button type="button" data-move="left" aria-label="Mover a la izquierda">◀</button>
+            <button type="button" data-move="down" aria-label="Mover abajo">▼</button>
+            <button type="button" data-move="right" aria-label="Mover a la derecha">▶</button>
+          </div>
+        </div>
+
+        <p class="howto"><strong>Cómo jugar:</strong> usa las flechas, WASD o desliza. Une fichas iguales para evolucionar tus superpoderes.</p>
+      </section>
+
+      <aside class="intel-column">
+        <section class="tip-panel glass" aria-labelledby="tipTitle">
+          <div class="panel-heading">
+            <div class="radar" aria-hidden="true"><span></span></div>
+            <div>
+              <span class="mini-label">INTELIGENCIA EN TIEMPO REAL</span>
+              <h2 id="tipTitle">Tip de ciberseguridad</h2>
+            </div>
+          </div>
+          <div id="tipCard" class="tip-card" aria-live="polite">
+            <span id="tipTag" class="tip-tag">MFA</span>
+            <h3 id="tipHeading">Activa una segunda barrera</h3>
+            <p id="tipText">Usa autenticación multifactor en tus cuentas importantes.</p>
+          </div>
+          <div class="tip-nav">
+            <button id="prevTip" class="icon-btn large" type="button" aria-label="Tip anterior">←</button>
+            <span><b id="tipIndex">1</b> / <span id="tipCount">12</span></span>
+            <button id="nextTip" class="icon-btn large" type="button" aria-label="Tip siguiente">→</button>
+          </div>
+        </section>
+
+        <section class="progress-panel glass" aria-labelledby="progressTitle">
+          <div class="panel-title-row">
+            <div>
+              <span class="mini-label">ARSENAL DIGITAL</span>
+              <h2 id="progressTitle">Superpoderes descubiertos</h2>
+            </div>
+            <strong id="powerProgress">1/11</strong>
+          </div>
+          <div id="powerList" class="power-list"></div>
+        </section>
+
+        <section class="status-panel glass">
+          <div>
+            <span class="status-dot"></span>
+            <span>DEFENSA ACTUAL</span>
+          </div>
+          <strong id="defenseLevel">INICIANDO</strong>
+          <div class="progress-track"><i id="defenseBar"></i></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <section id="playerModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <div class="modal-card glass">
+      <div class="shield-logo" aria-hidden="true">20<span>48</span></div>
+      <span class="mini-label">PROTOCOLO DE IDENTIFICACIÓN</span>
+      <h2 id="welcomeTitle">Bienvenido a Ciber2048</h2>
+      <p>Ingresa tu nombre para guardar el puntaje, acumular logros y generar tu reporte.</p>
+      <form id="playerForm">
+        <label for="playerInput">Nombre del jugador</label>
+        <input id="playerInput" name="player" type="text" maxlength="32" autocomplete="name" placeholder="Ej. Miller Rincón" required>
+        <small id="playerError" role="alert"></small>
+        <button class="btn primary wide" type="submit">Iniciar misión →</button>
+      </form>
+      <p class="privacy-note">Los datos se guardan únicamente en este navegador.</p>
+    </div>
+  </section>
+
+  <section id="confirmModal" class="modal compact" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" hidden>
+    <div class="modal-card glass">
+      <div class="confirm-icon">↻</div>
+      <h2 id="confirmTitle">¿Iniciar una nueva partida?</h2>
+      <p>Tu puntaje acumulado y tu récord se conservarán.</p>
+      <div class="overlay-actions">
+        <button id="cancelNewBtn" class="btn ghost" type="button">Cancelar</button>
+        <button id="confirmNewBtn" class="btn primary" type="button">Sí, reiniciar</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="printSheet" class="print-sheet" aria-hidden="true">
+    <header>
+      <div class="print-brand">
+        <img src="assets/logo.png" alt="Logo de Comfacundi">
+        <div>
+        <p>CIBERAULA · REPORTE DE MISIÓN</p>
+        <h1>Ciber2048</h1>
+        </div>
+      </div>
+      <div class="print-badge">RESULTADO DIGITAL</div>
+    </header>
+    <div class="print-summary">
+      <div><span>Jugador</span><strong id="printPlayer">—</strong></div>
+      <div><span>Puntaje</span><strong id="printScore">0</strong></div>
+      <div><span>Récord</span><strong id="printBest">0</strong></div>
+      <div><span>Acumulado</span><strong id="printTotal">0</strong></div>
+      <div><span>Máxima defensa</span><strong id="printPower">—</strong></div>
+      <div><span>Fecha</span><strong id="printDate">—</strong></div>
+    </div>
+    <h2>Estado final del tablero</h2>
+    <div id="printBoard" class="print-board"></div>
+    <div class="print-message">
+      <h2 id="printRank">Defensa digital en progreso</h2>
+      <p id="printAdvice">Cada capa de seguridad reduce el riesgo. Mantén activos tus superpoderes digitales.</p>
+    </div>
+    <footer>Reporte generado desde Ciber2048 · Juego educativo de ciberseguridad</footer>
+  </section>
+
+  <script src="game.js"></script>
+</body>
+</html>
