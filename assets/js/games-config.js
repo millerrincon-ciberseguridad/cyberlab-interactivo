@@ -154,10 +154,16 @@ window.CIBERAULA_GAMES = [
     imagen: "assets/images/cards/juego-13.webp",
     href: "juegos/ciberaula-ciberpac/index.html",
     habilitado: false
+  },
+ {
+    id: "juego-14",
+    numero: "14",
+    titulo: "2048 - Combina defensas - Desbloquea conocimiento.",
+    descripcion: "Adquiere protección y evita que el Malware te consuma.",
+    etiqueta: "1 INTERACCIÓN",
+    imagen: "assets/images/cards/juego-14.webp",
+    href: "juegos/ciberaula-2048-ciber/index.html",
+    habilitado: true
   }
-
-
-
-
 
 ];
