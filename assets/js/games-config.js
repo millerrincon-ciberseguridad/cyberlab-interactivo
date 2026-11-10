@@ -164,6 +164,16 @@ window.CIBERAULA_GAMES = [
     imagen: "assets/images/cards/juego-14.webp",
     href: "juegos/ciberaula-2048-ciber/index.html",
     habilitado: true
+  },
+ {
+    id: "juego-15",
+    numero: "15",
+    titulo: "Operación Anonimus",
+    descripcion: "Defiende la red en tres zonas infestadas de malware.",
+    etiqueta: "3 INTERACCIONES",
+    imagen: "assets/images/cards/juego-15.webp",
+    href: "juegos/ciberaula-contra-malware/index.html",
+    habilitado: true
   }
 
 ];
