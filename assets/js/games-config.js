@@ -174,6 +174,16 @@ window.CIBERAULA_GAMES = [
     imagen: "assets/images/cards/juego-15.webp",
     href: "juegos/ciberaula-contra-malware/index.html",
     habilitado: true
+  },
+ {
+    id: "juego-16",
+    numero: "16",
+    titulo: "Kart Cypher",
+    descripcion: "Anticipa amenazas, derrapa, esquiva y protege la red a máxima velocidad.",
+    etiqueta: "3 INTERACCIONES",
+    imagen: "assets/images/cards/juego-16.webp",
+    href: "juegos/ciberaula-kart-cipher/index.html",
+    habilitado: true
   }
 
 ];
