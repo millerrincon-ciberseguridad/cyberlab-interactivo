@@ -1,0 +1,11 @@
+{
+  "name": "ciberaula-kart-cipher",
+  "version": "7.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "test": "KART_GAME=src/game.source.js node tests/qa.js",
+    "test:dist": "KART_GAME=dist/game.js node tests/qa.js",
+    "verify": "npm run build && node --check game.js && npm test && npm run test:dist"
+  }
+}
