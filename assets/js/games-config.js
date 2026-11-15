@@ -41,7 +41,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "24 PRUEBAS",
     imagen: "assets/images/cards/juego-02.webp",
     href: "juegos/el-hacker-esta-dentro/index.html",
-    habilitado: false
+    habilitado: true
   },
 
   {
@@ -52,7 +52,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "20 PRUEBAS",
     imagen: "assets/images/cards/juego-03.webp",
     href: "juegos/construye-contrasena-resistente/index.html",
-    habilitado: false
+    habilitado: true
   },
 
   {
@@ -63,7 +63,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "24 PRUEBAS",
     imagen: "assets/images/cards/juego-04.webp",
     href: "juegos/escape-room-recupera-los-archivos/index.html",
-    habilitado: false
+    habilitado: true
   },
   {
     id: "juego-05",
@@ -73,7 +73,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "24 PRUEBAS",
     imagen: "assets/images/cards/juego-05.webp",
     href: "juegos/semaforo-del-riesgo/index.html",
-    habilitado: false
+    habilitado: true
   },
   {
     id: "juego-06",
@@ -83,7 +83,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "24 PRUEBAS",
     imagen: "assets/images/cards/juego-06.webp",
     href: "juegos/ordena-respuesta-incidente/index.html",
-    habilitado: false
+    habilitado: true
   },
   {
     id: "juego-07",
@@ -93,7 +93,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "24 INTERACCIONES",
     imagen: "assets/images/cards/juego-07.webp",
     href: "juegos/puesto-cero-ransomware/index.html",
-    habilitado: false
+    habilitado: true
   },
  {
     id: "juego-08",
@@ -103,7 +103,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "1 INTERACCIÓN",
     imagen: "assets/images/cards/juego-08.webp",
     href: "juegos/rompecabezas-ciberaula/index.html",
-    habilitado: false
+    habilitado: true
   },
  {
     id: "juego-09",
@@ -113,7 +113,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "1 INTERACCIÓN",
     imagen: "assets/images/cards/juego-09.webp",
     href: "juegos/sopa-letras-ciberaula/index.html",
-    habilitado: false
+    habilitado: true
   },
  {
     id: "juego-10",
@@ -123,7 +123,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "1 INTERACCIÓN",
     imagen: "assets/images/cards/juego-10.webp",
     href: "juegos/ciberaula-crucigrama/index.html",
-    habilitado: false
+    habilitado: true
   },
  {
     id: "juego-11",
@@ -133,7 +133,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "1 INTERACCIÓN",
     imagen: "assets/images/cards/juego-11.webp",
     href: "juegos/ciberaula-ciberarkanoid/index.html",
-    habilitado: false
+    habilitado: true
   },
  {
     id: "juego-12",
@@ -143,7 +143,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "10 INTERACCIONES",
     imagen: "assets/images/cards/juego-12.webp",
     href: "juegos/ciberaula-ciberescuadron-1942/index.html",
-    habilitado: false
+    habilitado: true
   },
  {
     id: "juego-13",
@@ -153,7 +153,7 @@ window.CIBERAULA_GAMES = [
     etiqueta: "1 INTERACCIÓN",
     imagen: "assets/images/cards/juego-13.webp",
     href: "juegos/ciberaula-ciberpac/index.html",
-    habilitado: false
+    habilitado: true
   },
  {
     id: "juego-14",
