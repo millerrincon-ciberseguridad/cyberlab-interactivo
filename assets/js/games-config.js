@@ -184,6 +184,16 @@ window.CIBERAULA_GAMES = [
     imagen: "assets/images/cards/juego-16.webp",
     href: "juegos/ciberaula-kart-cipher/index.html",
     habilitado: true
+  },
+ {
+    id: "juego-17",
+    numero: "17",
+    titulo: "Tetris",
+    descripcion: "Ordena los módulos descendentes, completa líneas y desbloquea consejos para defender tu información.",
+    etiqueta: "3 INTERACCIONES",
+    imagen: "assets/images/cards/juego-17.webp",
+    href: "juegos/ciberbloques-guardia-digital/index.html",
+    habilitado: true
   }
 
 ];
