@@ -29,7 +29,7 @@ window.CIBERAULA_GAMES = [
     descripcion: "Analiza mensajes simulados, descubre señales de engaño y elige la respuesta segura.",
     etiqueta: "24 PRUEBAS",
     imagen: "assets/images/cards/juego-01-phishing.webp",
-    href: "juegos/detecta-phishing/index.html",
+    href: "juegos/ciberaula-detecta-phishing/index.html",
     habilitado: true
   },
 
