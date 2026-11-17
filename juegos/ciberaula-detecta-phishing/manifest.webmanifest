@@ -1,0 +1,9 @@
+{
+  "name": "Ciberaula — Detecta el Phishing",
+  "short_name": "Detecta Phishing",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#061018",
+  "theme_color": "#07131d",
+  "icons": []
+}

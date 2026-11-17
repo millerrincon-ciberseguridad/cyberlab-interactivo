@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07131d">
+  <meta name="description" content="Juego educativo avanzado para reconocer phishing e ingeniería social.">
+  <title>Detecta el Phishing | Ciberaula</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div class="ambient-bg" aria-hidden="true"></div>
+  <header class="site-header">
+    <img id="brand-logo" class="brand-logo" src="assets/logo-configurable.svg" alt="Logo de Ciberaula">
+    <div class="header-actions">
+      <button id="sound-toggle" class="icon-button" type="button" aria-pressed="true" title="Activar o desactivar sonidos">🔊 <span>Sonido</span></button>
+      <a id="home-link" class="home-button" href="../../index.html">← Volver a la portada</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="app-shell">
+    <section id="start-screen" class="panel start-panel" aria-labelledby="start-title">
+      <div class="eyebrow">Laboratorio de ingeniería social</div>
+      <h1 id="start-title">Detecta el <span>Phishing</span></h1>
+      <p class="lead">36 casos plausibles. Cuatro niveles. Ningún logotipo, candado o nombre visible debe aceptarse sin analizar el contexto.</p>
+      <div class="feature-grid" aria-label="Contenido del juego">
+        <div><strong>01</strong><span>Fundamentos engañosos</span></div>
+        <div><strong>02</strong><span>Canales y suplantación</span></div>
+        <div><strong>03</strong><span>Ataques avanzados</span></div>
+        <div><strong>04</strong><span>Escenarios expertos</span></div>
+      </div>
+      <form id="player-form" class="player-form">
+        <label for="player-name">Nombre del jugador</label>
+        <div class="form-row">
+          <input id="player-name" name="playerName" type="text" minlength="2" maxlength="48" autocomplete="name" placeholder="Escribe tu nombre" required>
+          <button class="primary-button" type="submit">Iniciar análisis</button>
+        </div>
+        <p class="privacy-note">El nombre y el progreso se guardan únicamente en este navegador.</p>
+      </form>
+      <div class="start-warning"><span aria-hidden="true">⚠</span><p><strong>Regla del laboratorio:</strong> todos los dominios <code>.example</code> son simulaciones seguras. Ningún enlace del juego es navegable.</p></div>
+    </section>
+
+    <section id="game-screen" class="game-layout" hidden aria-live="polite">
+      <div class="status-bar panel">
+        <div class="player-chip"><span class="avatar" aria-hidden="true">◉</span><span><small>Analista</small><strong id="player-display">—</strong></span></div>
+        <div class="status-metrics">
+          <div><small>Nivel</small><strong id="level-display">1/4</strong></div>
+          <div><small>Prueba</small><strong id="progress-display">1/36</strong></div>
+          <div><small>Racha</small><strong id="streak-display">0</strong></div>
+          <div><small>Score</small><strong id="score-display">0</strong></div>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Progreso del juego" aria-valuemin="0" aria-valuemax="36" aria-valuenow="0"><span id="progress-fill"></span></div>
+      </div>
+
+      <div id="level-notice" class="level-notice" role="status"></div>
+
+      <article class="challenge panel" aria-labelledby="challenge-title">
+        <div class="challenge-head">
+          <div><span id="level-badge" class="level-badge">NIVEL 1</span><span id="channel-badge" class="channel-badge">CORREO</span></div>
+          <span id="points-badge" class="points-badge">100 pts</span>
+        </div>
+        <h2 id="challenge-title">Caso</h2>
+        <p class="instruction">Examina el remitente, el canal, el lenguaje y el destino. Después decide.</p>
+
+        <div id="message-frame" class="message-frame"></div>
+
+        <div class="analysis-tools">
+          <button id="inspect-button" class="secondary-button" type="button" aria-expanded="false">⌕ Inspeccionar datos técnicos</button>
+          <button id="hint-button" class="ghost-button" type="button">💡 Usar pista <span>(−30%)</span></button>
+        </div>
+        <div id="technical-panel" class="technical-panel" hidden></div>
+        <div id="hint-panel" class="hint-panel" hidden></div>
+
+        <fieldset id="decision-fieldset" class="decision-box">
+          <legend>¿Cuál es tu veredicto?</legend>
+          <button class="decision legit" type="button" data-answer="legit"><span aria-hidden="true">✓</span><span><strong>Parece legítimo</strong><small>Las señales y el contexto son coherentes</small></span></button>
+          <button class="decision phishing" type="button" data-answer="phishing"><span aria-hidden="true">⚠</span><span><strong>Es phishing</strong><small>Hay suplantación o una petición peligrosa</small></span></button>
+        </fieldset>
+
+        <section id="feedback" class="feedback" hidden tabindex="-1" aria-labelledby="feedback-title">
+          <div class="feedback-heading"><span id="feedback-icon" aria-hidden="true"></span><div><div id="feedback-kicker" class="feedback-kicker"></div><h3 id="feedback-title"></h3></div></div>
+          <p id="feedback-explanation"></p>
+          <h4>Señales del caso</h4>
+          <div id="signals-list" class="signals-list"></div>
+          <div class="recommended-action"><strong>Respuesta segura recomendada</strong><p id="action-text"></p></div>
+          <button id="next-button" class="primary-button" type="button">Siguiente prueba →</button>
+        </section>
+      </article>
+    </section>
+
+    <section id="result-screen" class="panel result-panel" hidden aria-labelledby="result-title">
+      <div class="result-seal" aria-hidden="true">✓</div>
+      <div class="eyebrow">Informe de análisis completado</div>
+      <h2 id="result-title">Resultado de <span id="result-name"></span></h2>
+      <p id="result-summary" class="lead"></p>
+      <div class="result-grid">
+        <div><small>Puntaje de sesión</small><strong id="result-score">0</strong></div>
+        <div><small>Respuestas correctas</small><strong id="result-correct">0/36</strong></div>
+        <div><small>Precisión</small><strong id="result-accuracy">0%</strong></div>
+        <div><small>Score acumulado</small><strong id="result-total">0</strong></div>
+      </div>
+      <div id="level-results" class="level-results"></div>
+      <div class="certificate-note"><strong>Principio aprendido</strong><p>La apariencia crea confianza; la verificación independiente crea seguridad.</p></div>
+      <div class="result-actions">
+        <button id="print-button" class="primary-button" type="button">🖨 Imprimir o guardar como PDF</button>
+        <button id="restart-button" class="secondary-button" type="button">↻ Jugar de nuevo</button>
+        <a class="home-button" href="../../index.html">← Volver a la portada</a>
+      </div>
+      <p class="print-date">Resultado generado: <span id="result-date"></span></p>
+    </section>
+  </main>
+
+  <div id="toast-region" class="toast-region" aria-live="assertive" aria-atomic="true"></div>
+  <footer><span>Simulador educativo · No recopila ni transmite datos</span><span>Atajos: <kbd>1</kbd> legítimo · <kbd>2</kbd> phishing · <kbd>N</kbd> siguiente</span></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/tests.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
