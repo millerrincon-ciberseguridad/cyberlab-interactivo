@@ -1,0 +1,7 @@
+Kart Cipher v8 — distribución lista para publicación
+
+Esta versión sincroniza la posición visual con las colisiones, usa hitboxes ajustadas y conserva el resto del juego.
+
+Copie el CONTENIDO de esta carpeta dist/ en /juegos/ciberaula-kart-cipher/ de su sitio.
+No publique src/ ni tools/ si no desea distribuir la fuente editable.
+El JavaScript está minificado y usa nombres internos transformados; esto solo dificulta la copia casual. El navegador siempre descarga los recursos del juego.
