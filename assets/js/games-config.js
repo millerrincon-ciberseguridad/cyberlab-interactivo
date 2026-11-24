@@ -194,6 +194,16 @@ window.CIBERAULA_GAMES = [
     imagen: "assets/images/cards/juego-17.webp",
     href: "juegos/ciberbloques-guardia-digital/index.html",
     habilitado: true
+  },
+ {
+    id: "juego-18",
+    numero: "18",
+    titulo: "CiberAmenazas - BuscaMinas",
+    descripcion: "Localiza amenazas digitales sin activarlas. Cada zona segura revela una defensa, una buena práctica o un consejo.",
+    etiqueta: "3 INTERACCIONES",
+    imagen: "assets/images/cards/juego-18.webp",
+    href: "juegos/ciberaula-ciberamenazas/index.html",
+    habilitado: true
   }
 
 ];
